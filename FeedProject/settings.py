@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'users',
      #third party apps
     'bootstrap4',
-    'crispy_forms',
+    'crispy_forms', #relate to the formatting of the web page 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 #TIME_ZONE = 'UTC'
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Chicago' #change the time zone to central 
 
 USE_I18N = True
 
