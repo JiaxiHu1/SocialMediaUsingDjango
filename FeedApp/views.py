@@ -42,4 +42,29 @@ def profile(request): #posting to the webpage and getting things from the webpag
     context = {'form':form} #we want to make sure it's not indented 
     return render(request,'FeedApp/profile.html',context) 
 
+@login_required
+def myfeed(request):
+    comment_count_list = []
+    like_count_list = [] 
+    #we have multiple posts, so we would like to have comment and likes for each post 
+    #went back to the models.py to check what's in the post
+    posts = Post.objects.filter(username = request.user).order_by('-date_posted') #- means it's the reverse order
+    #we would like to order then in the reverse order, the newest show on the top 
+    #we would like to iterate through loop 
+    for p in posts: 
+        c_count = Comment.objects.filter(post=p).count()
+        l_count = Like.objects.filter(post=p).count()
+        comment_count_list.append(c_count)
+        like_count_list.append(l_count)
+        #zip it all up, so we can iterate all together 
+    zipped_list = zip(posts,comment_count_list,like_count_list)
+
+    context = {'posts':posts,"zipped_list":zipped_list}
+    return render(request, 'FeedApp/myfeed.html',context)
+
+    
+
+
+
+
 

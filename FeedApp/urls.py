@@ -8,7 +8,8 @@ urlpatterns = [
     #build our profile first, first name,lastname, bio etc 
     path('profile/',views.profile,name='profile'),
     #develop my feed, link at the top of the homepage for all our post 
-    #path('myfeed',views.myfeed,name='myfeed'),
+    #1st work on the profile and then work on my feed 
+    path('myfeed',views.myfeed,name='myfeed'),
 
     
     ]
