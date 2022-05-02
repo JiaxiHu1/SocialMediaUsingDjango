@@ -8,8 +8,8 @@
 {% block content %}
 
 <h1><p>My Profile:</p></h1>
-<form action="{% url 'FeedApp:Profile' %}" method = 'post'>
-    {% crsf_token %}
+<form action="{% url 'FeedApp:profile' %}" method = 'post'>
+    {% csrf_token %}
 <!--crsf token to make sure there is not malicious code-->
     {{ form |crispy}}
     <br><br>
