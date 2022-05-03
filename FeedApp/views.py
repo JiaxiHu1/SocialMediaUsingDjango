@@ -188,6 +188,15 @@ def friends(request):
     #create an relationship object to access the sender's user id 
     #to add to friends list of t he user 
             relationship_obj = Relationship.objects.get(id=sender)
+            #add to their friends profile the sender of the object 
+            #we can get the user id of the person who send the request 
+            user_profile.friends.add(relationship_obj.sender.user)
+
+            #add the user to the friends list of the sender's profile 
+            relationship_obj.sender.friends.add(request.user)
+    
+    context = {'user_friends_profiles':user_friends_profiles,'user_relationships':user_relationships,
+                'all_profiles':all_profiles,'request_received_profiles':request_received_profiles}
 
 
 
