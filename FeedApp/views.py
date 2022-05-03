@@ -130,7 +130,7 @@ def friendsfeed(request):
         #make sure they won't like again 
         like_already_exists = Like.objects.filter(post_if=post_to_like,username=request.user)
         #check in the models.py 
-        if not like_already_exists():
+        if not like_already_exists.exists():
             Like.objects.create(post_id=post_to_like,username=request.user)
             return redirect("FeedApp:friendsfeed")
 
@@ -173,7 +173,7 @@ def friends(request):
         receivers = request.POST.getlist("send_requests")
         #printout and check 
         print(receivers)
-        
+
         for receiver in receivers:
             #we want to get the profile of the particular person, then we can create the relationsip 
             receiver_profile = Profile.objects.get(id=receiver)
