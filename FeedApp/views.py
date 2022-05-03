@@ -197,6 +197,8 @@ def friends(request):
     
     context = {'user_friends_profiles':user_friends_profiles,'user_relationships':user_relationships,
                 'all_profiles':all_profiles,'request_received_profiles':request_received_profiles}
+    
+    return render(request,'FeedApp/friends.html',context)
 
 
 

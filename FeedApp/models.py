@@ -29,7 +29,7 @@ STATUS_CHOICES = (
 class Relationship(models.Model): #establish the relationship between two profiles 
     sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sender') #a foreign key to the profile class. both associate with the profile class 
     receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiver') 
-    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default="send")
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default="sent")
     created = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now_add=True)
     
