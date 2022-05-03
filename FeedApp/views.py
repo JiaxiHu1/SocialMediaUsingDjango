@@ -99,10 +99,10 @@ def comments(request,post_id):
         Comment.objects.create(post_id=post_id,username=request.user,text=comment,date_added=date.today())
     
     #we want to refresh and let the comment show up 
-    comments.Comment.objects.filter(post=post_id)
+    comments= Comment.objects.filter(post=post_id)
     post = Post.objects.get(id=post_id)
 
     context = {'post':post,'comments':comments}
     return render(request, 'FeedApp/comments.html',context)
-    
+
 

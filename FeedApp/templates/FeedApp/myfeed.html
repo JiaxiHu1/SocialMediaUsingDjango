@@ -13,6 +13,7 @@
 
 
 <table style="font-size:25px;width:100%">
+    <!--post, comment, likes-->
     {% for p,c,l in zipped_list %}
         <tr style="border: 1px solid black;padding: 6px;">
             <td>{{p.username}}:&nbsp {{ p }} <br> 
@@ -27,7 +28,8 @@
         <tr style="border: 1px solid black;padding: 6px;">
             <td> {{p.date_posted}}</td>
             <td>Likes: &nbsp {{ l }} &nbsp&nbsp&nbsp</td>
-            <td>Comments: &nbsp {{ c }} &nbsp&nbsp&nbsp</td>
+            <!-- make comment a hyperlink-->
+            <td>Comments: &nbsp <a href="{% url 'FeedApp:comments' p.id %}">{{c}}</a>&nbsp&nbsp&nbsp</td>
 <!-- this show the date that was posted, number of likes and the comments -->
         </tr>
         {% endfor %}
