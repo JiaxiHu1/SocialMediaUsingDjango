@@ -178,7 +178,7 @@ def friends(request):
             #we want to get the profile of the particular person, then we can create the relationsip 
             receiver_profile = Profile.objects.get(id=receiver)
             Relationship.objects.create(sender=user_profile,receiver=receiver_profile,status='sent')
-            return redirect('FeedApp:friends')
+        return redirect('FeedApp:friends')
         #redirect them to the same page 
     
     #this is to process all receive requests 
@@ -189,7 +189,7 @@ def friends(request):
             Relationship.objects.filter(id=sender).update(status='accepted')
     
     #create an relationship object to access the sender's user id 
-    #to add to friends list of t he user 
+    #to add to friends list of the user 
             relationship_obj = Relationship.objects.get(id=sender)
             #add to their friends profile the sender of the object 
             #we can get the user id of the person who send the request 
