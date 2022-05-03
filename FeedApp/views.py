@@ -1,3 +1,5 @@
+from telnetlib import STATUS
+from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from .forms import PostForm,ProfileForm, RelationshipForm
 from .models import Post, Comment, Like, Profile, Relationship
@@ -135,3 +137,57 @@ def friendsfeed(request):
 
     context = {'posts':posts,"zipped_list":zipped_list}
     return render(request, 'FeedApp/friendsfeed.html',context)
+
+#handle friends requests 
+@login_required
+def friends(request):
+    #get the admin_profile and user profiel to create the first relationship 
+    admin_profile = Profile.objects.get(user=1) #that's the first person created will be admin
+    user_profile = Profile.objects.get(user=request.user) #user profile 
+
+    #get a list of my friends 
+    user_friends = user_profile.friends.all() #go to models - friends - many to many, a list of users 
+    user_friends_profiles = Profile.objects.filter(user__in=user_friends) #@filter which one is your friend, profile for each of your user friends 
+
+    #to get friend request sent 
+    user_relationships = Relationship.objects.filter(sender=user_profile) #models.py - sender, receiver 
+    request_sent_profiles = user_relationships.values('receiver') #get all the profile of the receivers 
+    
+    #who we can send the request to 
+    #exclude everyone who's already my friend and who I send the request to already 
+    all_profiles = Profile.objects.exclude(user=request.user).exclude(id__in=user_friends_profiles).exclude(id__in=request_sent_profiles)
+
+    #to get frieds requests received by the user 
+    request_received_profiles = Relationship.objects.filter(receiver=user_profile,status='sent')
+
+    #create the first relationship with the admin 
+    if not user_relationships.exists(): #filter works with exists, get doesnot 
+        Relationship.objects.create(sender=user_profile,receiver=admin_profile,status='sent')
+        #relationship = Relationship.objects.filter(sender=user_profile,status='sent')
+
+        #which button is pressed 
+        #sending or accepting 
+    #All SEND requests 
+    if request.method == 'POST' and request.POST.get("send_requests"):
+        #who are the receivers 
+        receivers = request.POST.getlist("send_requests")
+        for receiver in receivers:
+            #we want to get the profile of the particular person, then we can create the relationsip 
+            receiver_profile = Profile.objects.get(id=receiver)
+            Relationship.objects.create(sender=user_profile,receiver=receiver_profile,status='sent')
+            return redirect('FeedApp:friends')
+        #redirect them to the same page 
+    
+    #this is to process all receive requests 
+    if request.method == 'POST' and request.POST.get("receive_requests"):
+        senders = request.POST.getlist("friend_requests")
+        for sender in senders:
+            #update the relationship model for the sender to status 'accepted'
+            Relationship.objects.filter(id=sender).update(status='accepted')
+    
+    #create an relationship object to access the sender's user id 
+    #to add to friends list of t he user 
+            relationship_obj = Relationship.objects.get(id=sender)
+
+
+
