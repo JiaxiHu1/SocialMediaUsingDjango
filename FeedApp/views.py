@@ -171,6 +171,9 @@ def friends(request):
     if request.method == 'POST' and request.POST.get("send_requests"):
         #who are the receivers 
         receivers = request.POST.getlist("send_requests")
+        #printout and check 
+        print(receivers)
+        
         for receiver in receivers:
             #we want to get the profile of the particular person, then we can create the relationsip 
             receiver_profile = Profile.objects.get(id=receiver)
