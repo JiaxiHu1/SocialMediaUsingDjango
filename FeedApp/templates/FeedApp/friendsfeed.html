@@ -1,7 +1,7 @@
 {% extends "FeedApp/base.html" %}
 
 {% load bootstrap4 %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -10,6 +10,7 @@
 
 <!--add a form-->
 <form method="POST">
+    <!--we need token for forms-->
 {% csrf_token %}
 
 
@@ -30,7 +31,7 @@
             <td> {{p.date_posted}}</td>
             <!--make like button something that we can click on-->
             <td>
-                <button type="submit" name="like" value={{p.id}} styple="background-color: transparent;border: none;">
+                <button type="submit" name="like" value={{p.id}} style="background-color: transparent;border: none;">
                 Likes: &nbsp {{ l }} &nbsp&nbsp&nbsp
                 </button>
             </td>
