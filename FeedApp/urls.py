@@ -15,8 +15,8 @@ urlpatterns = [
     #work on comment- comment is associated with the post id and the post user name 
     path('comments/<int:post_id>/',views.comments,name='comments'), 
     #friends feed 
-    path('friendsfeed',views.friendsfeed,name='friendsfeed'),
-    
+    path('friendsfeed/',views.friendsfeed,name='friendsfeed'),
+
 
 
     
