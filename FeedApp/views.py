@@ -111,7 +111,7 @@ def comments(request,post_id):
 def friendsfeed(request):
     comment_count_list = []
     like_count_list = [] 
-    friends = Profile.objects.filter(username = request.user).values('friends')
+    friends = Profile.objects.filter(user = request.user).values('friends')
     posts = Post.objects.filter(username = request.user).order_by('-date_posted')
 
     for p in posts: 
