@@ -32,6 +32,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'FeedApp:profile' %}">My Profile</a>
             </li>
+
+             <!-- add friends-->
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'FeedApp:friends' %}">Friend Requests</a>
+            </li>
+
             <!--add my feed to the page-->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'FeedApp:myfeed' %}">My Feed</a>
@@ -40,6 +46,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'FeedApp:friendsfeed' %}">Friends Feed</a>
             </li>
+
+
                 
             </ul>
 
