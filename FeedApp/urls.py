@@ -10,6 +10,8 @@ urlpatterns = [
     #develop my feed, link at the top of the homepage for all our post 
     #1st work on the profile and then work on my feed 
     path('myfeed',views.myfeed,name='myfeed'),
+    #new path for post 
+    path('new_post/',views.new_post, name='new_post'), 
 
     
     ]
