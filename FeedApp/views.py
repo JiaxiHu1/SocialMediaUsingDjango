@@ -81,7 +81,11 @@ def new_post(request):
             new_post.username = request.user #now we are getting the user name 
             new_post.save()
             return redirect('FeedApp:myfeed') #keep them at the same location so they can see 
-            
+    
+    context = {'form':form}
+    return render(request,'FeedApp/new_post.html',context)
+    
+
 
 
 
