@@ -84,6 +84,13 @@ def new_post(request):
     
     context = {'form':form}
     return render(request,'FeedApp/new_post.html',context)
+
+#develop the function or the comments 
+@login_required
+def comments(request,post_id):
+    #we want to see if someone click the button for the comment 
+    #once they do, we will know what do to with the comment button 
+    #comment will be a link and someone click on it - redirect to another page to leave a comment 
     
 
 
