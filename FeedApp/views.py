@@ -62,7 +62,27 @@ def myfeed(request):
     context = {'posts':posts,"zipped_list":zipped_list}
     return render(request, 'FeedApp/myfeed.html',context)
 
-    
+#create a post within myfeed including different functionality 
+@login_required
+def new_post(request):
+    #see if it's get or post 
+    #get - load an empty form 
+    #post request - save to the database 
+    if request.method != 'POST':
+        #just load the blank form 
+        form = PostForm()
+    else:
+        #process it into the database, getting everything from the website, and save the image 
+        form = PostForm(request.POST,request.FILES)
+        if form.is_valid():#if the form is valid, we need to attach the username to it 
+            #date will be automatically add to it in the models.py file 
+            #but we do need to add the username to it 
+            new_post = form.save(commit=False) #we're not commit it to the database yet 
+            new_post.username = request.user #now we are getting the user name 
+            new_post.save()
+            return redirect('FeedApp:myfeed') #keep them at the same location so they can see 
+            
+
 
 
 
