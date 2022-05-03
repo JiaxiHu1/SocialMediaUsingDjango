@@ -91,11 +91,18 @@ def comments(request,post_id):
     #we want to see if someone click the button for the comment 
     #once they do, we will know what do to with the comment button 
     #comment will be a link and someone click on it - redirect to another page to leave a comment 
+
+    #to check if the request is post and also we want to see if the submit button is clicked 
+    if request.method == 'POST' and request.POST.get("btn1"):
+        comment = request.POST.get("comment")
+        #make a new row - capital because it's in the model, in the comment model 
+        Comment.objects.create(post_id=post_id,username=request.user,text=comment,date_added=date.today())
     
+    #we want to refresh and let the comment show up 
+    comments.Comment.objects.filter(post=post_id)
+    post = Post.objects.get(id=post_id)
 
-
-
-
-
-
+    context = {'post':post,'comments':comments}
+    return render(request, 'FeedApp/comments.html',context)
+    
 
