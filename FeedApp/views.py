@@ -128,7 +128,7 @@ def friendsfeed(request):
         post_to_like = request.POST.get("like")
         print(post_to_like)
         #make sure they won't like again 
-        like_already_exists = Like.objects.filter(post_if=post_to_like,username=request.user)
+        like_already_exists = Like.objects.filter(post_id=post_to_like,username=request.user)
         #check in the models.py 
         if not like_already_exists.exists():
             Like.objects.create(post_id=post_to_like,username=request.user)
@@ -143,7 +143,7 @@ def friendsfeed(request):
 def friends(request):
     #get the admin_profile and user profiel to create the first relationship 
     admin_profile = Profile.objects.get(user=1) #that's the first person created will be admin
-    user_profile = Profile.objects.get(user=request.user) #user profile 
+    user_profile = Profile.objects.get(user=request.user) #user profile                                            
 
     #get a list of my friends 
     user_friends = user_profile.friends.all() #go to models - friends - many to many, a list of users 
