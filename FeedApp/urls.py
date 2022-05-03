@@ -14,7 +14,10 @@ urlpatterns = [
     path('new_post/',views.new_post, name='new_post'), 
     #work on comment- comment is associated with the post id and the post user name 
     path('comments/<int:post_id>/',views.comments,name='comments'), 
+    #friends feed 
+    path('friendsfeed',views.friendsfeed,name='friendsfeed'),
     
+
 
     
     ]
